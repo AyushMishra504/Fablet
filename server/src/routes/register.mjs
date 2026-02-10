@@ -16,6 +16,7 @@ router.post(
   checkSchema(createUserValidationSchema),
   async (req, res) => {
     const errors = validationResult(req);
+    console.log(errors.array());
     if (!errors.isEmpty()) return res.status(400).send(errors.array());
 
     const data = matchedData(req);
