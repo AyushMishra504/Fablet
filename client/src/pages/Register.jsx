@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/register.css";
@@ -34,14 +35,27 @@ const Register = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(formData),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        // express-validator errors come as array
-        setError(data);
+        //user already exists
+        if (res.status === 409) {
+          setError(data.message);
+          return;
+        }
+
+        //Validation errors
+        if (res.status === 400 && Array.isArray(data)) {
+          setError(data);
+          return;
+        }
+
+        //Any other error
+        setError(data.message || "Something went wrong. Please try again.");
         return;
       }
 
@@ -52,10 +66,11 @@ const Register = () => {
         password: "",
       });
 
-      // Optional: Redirect to login or dashboard after success
+      // Optional: Redirect after success
       // setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
-      setError("Something went wrong. Try again.");
+      console.error(err);
+      setError("Network error. Please check your connection.");
     } finally {
       setLoading(false);
     }
@@ -143,7 +158,7 @@ const Register = () => {
 
         <div className="register-footer">
           Already have an account?{" "}
-          <a href="/signin" className="register-link">
+          <a href="/login" className="register-link">
             Sign In
           </a>
         </div>

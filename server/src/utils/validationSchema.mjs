@@ -1,4 +1,4 @@
-const createUserValidationSchema = {
+export const createUserValidationSchema = {
   name: {
     isLength: {
       options: {
@@ -16,9 +16,11 @@ const createUserValidationSchema = {
     },
   },
   email: {
-    notEmpty: true,
-    isString: {
-      errorMessage: "email must be a string!",
+    isEmail: {
+      errorMessage: "Invalid email address",
+    },
+    notEmpty: {
+      errorMessage: "Email is required",
     },
   },
   password: {
@@ -35,4 +37,22 @@ const createUserValidationSchema = {
   },
 };
 
-export default createUserValidationSchema;
+// utils/loginValidationSchema.mjs
+export const loginUserValidationSchema = {
+  email: {
+    isEmail: {
+      errorMessage: "Invalid email address",
+    },
+    notEmpty: {
+      errorMessage: "Email is required",
+    },
+  },
+  password: {
+    isString: {
+      errorMessage: "Password must be a string",
+    },
+    notEmpty: {
+      errorMessage: "Password is required",
+    },
+  },
+};

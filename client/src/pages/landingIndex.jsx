@@ -54,7 +54,9 @@ function LandingIndex() {
       <nav className="navbar">
         <div className="navbar-logo">Fablet</div>
         <div className="navbar-buttons">
-          <button className="btn-signin">Sign In</button>
+          <button className="btn-signin" onClick={() => navigate("/login")}>
+            Sign In
+          </button>
           <button className="btn-primary" onClick={() => navigate("/register")}>
             Get Started
           </button>
