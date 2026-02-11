@@ -55,8 +55,8 @@ const Login = () => {
         password: "",
       });
 
-      // Optional: Redirect to login or dashboard after success
-      // setTimeout(() => navigate('/login'), 2000);
+      //Redirect to dashboard after success
+      setTimeout(() => navigate("/Dashboard"), 1000);
     } catch (err) {
       setError("Something went wrong. Please try again later.");
     } finally {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const MainPage = () => {
+const Dashboard = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
@@ -12,7 +12,7 @@ const MainPage = () => {
       try {
         const res = await fetch("/api/dashboard", {
           method: "GET",
-          credentials: "include", // 🔴 REQUIRED for cookies
+          credentials: "include", // required for cookies
         });
 
         if (res.status === 401) {
@@ -34,6 +34,7 @@ const MainPage = () => {
 
   if (loading) return <p>Loading dashboard...</p>;
   if (error) return <p>{error}</p>;
+  if (!data) return null;
 
   return (
     <div style={{ padding: "2rem" }}>
@@ -44,4 +45,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default Dashboard;

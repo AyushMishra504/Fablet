@@ -1,5 +1,5 @@
 import { Router } from "express";
-import tokenVerification from "./auth/tokenVerification.mjs";
+import { tokenVerification } from "./auth/tokenVerification.mjs";
 
 const router = Router();
 router.use(tokenVerification);
