@@ -34,6 +34,7 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(formData),
       });
 
@@ -56,7 +57,7 @@ const Login = () => {
       });
 
       //Redirect to dashboard after success
-      setTimeout(() => navigate("/Dashboard"), 1000);
+      setTimeout(() => navigate("/Dashboard"), 500);
     } catch (err) {
       setError("Something went wrong. Please try again later.");
     } finally {

@@ -67,7 +67,7 @@ const Register = () => {
       });
 
       // Optional: Redirect after success
-      // setTimeout(() => navigate('/login'), 2000);
+      setTimeout(() => navigate("/Dashboard"), 500);
     } catch (err) {
       console.error(err);
       setError("Network error. Please check your connection.");
