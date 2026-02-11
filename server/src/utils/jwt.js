@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = "U--lb%e9HnPofkK6me^dKaL:v#M[K(D^zKYQs2$Z>%S";
+export const JWT_SECRET = "U--lb%e9HnPofkK6me^dKaL:v#M[K(D^zKYQs2$Z>%S";
 const JWT_EXPIRES_IN = "7d";
 
 // Generate JWT token
