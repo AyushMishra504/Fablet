@@ -211,7 +211,7 @@ body {
    ========================================= */
 
 .app-preview-container {
-  width: 100%;
+  width: 80%;
   max-width: 900px;
   margin: 0 auto;
   animation: fadeInUp 1s ease-out 0.6s backwards;
@@ -219,20 +219,11 @@ body {
 
 .app-preview {
   width: 100%;
-  height: 320px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.05) 0%,
-    rgba(255, 255, 255, 0.02) 100%
-  );
+  height: 500px;     /* adjust if needed */
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  position: relative;
   overflow: hidden;
+  background: none;  /* removes blue layer */
+  box-shadow: none;  /* removes glow */
 }
 
 /* TO ADD YOUR APP PREVIEW IMAGE:
@@ -240,65 +231,14 @@ body {
    <img src="/path/to/app-screenshot.png" alt="App Preview" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
 */
 
-/* Placeholder styles - Remove when you add your image */
-.preview-placeholder {
+
+
+.preview-image {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  background: linear-gradient(135deg, rgba(251, 191, 36, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
-}
-
-.placeholder-icon {
-  font-size: 80px;
-  opacity: 0.4;
-}
-
-.placeholder-text {
-  font-size: 24px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.placeholder-hint {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.4);
-  font-style: italic;
-}
-
-/* Glassmorphism reflection effect */
-.app-preview::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    transparent 100%
-  );
-  pointer-events: none;
-}
-
-.app-preview::after {
-  content: '';
-  position: absolute;
-  bottom: -50%;
-  left: -50%;
-  right: -50%;
-  height: 200%;
-  background: radial-gradient(
-    circle,
-    rgba(251, 191, 36, 0.05) 0%,
-    transparent 70%
-  );
-  animation: shimmer 8s ease-in-out infinite;
-  pointer-events: none;
+  object-fit: contain;
+  background: transparent;
+  border-radius: 24px;
 }
 
 @keyframes shimmer {
@@ -613,9 +553,13 @@ body {
     max-width: 320px;
   }
 
-  .app-preview {
-    height: 350px;
-  }
+ .app-preview {
+  width: 100%;
+  max-height: 10000px;
+  aspect-ratio: 16/9;   /* increase size */
+  border-radius: 24px;
+  overflow: hidden;
+}
 
   .explore-section {
     padding: 80px 20px;
@@ -664,7 +608,7 @@ body {
   }
 
   .app-preview {
-    height: 280px;
+    height: 250px;
     border-radius: 16px;
   }
 

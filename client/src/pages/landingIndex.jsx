@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/landing.css';
+import previewImage from '../images/view.png';
 
 function LandingIndex() {
   const navigate = useNavigate();
@@ -40,24 +41,24 @@ function LandingIndex() {
 
           <div className="cta-buttons">
             <button className="btn btn-primary" onClick={handleSignIn}>
-              Sign in with your account
+              Sign in to your account
             </button>
             <button className="btn btn-secondary" onClick={handleCreateAccount}>
               Create Account
             </button>
           </div>
 
-          <div className="app-preview-container">
-            <div className="app-preview">
-              {/* Placeholder - Replace with your actual image */}
-              <div className="preview-placeholder">
-                <div className="placeholder-icon">📚</div>
-                <p className="placeholder-text">App Dashboard Preview</p>
-                <p className="placeholder-hint">Replace this div with your screenshot</p>
+            <div className="app-preview-container">
+              <div className="app-preview">
+                {/* Placeholder - Replace with your actual image */}
+                  <img 
+                    src={previewImage}
+                    alt="Fablet Dashboard Preview"
+                    className="preview-image"
+                  />
               </div>
             </div>
           </div>
-        </div>
 
         <div className="scroll-indicator">
           <span className="scroll-text">Scroll to explore</span>
