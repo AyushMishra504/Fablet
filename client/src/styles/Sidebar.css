@@ -1,0 +1,270 @@
+/* Sidebar Container */
+.sidebar {
+  width: var(--sidebar-width, 280px);
+  height: calc(100vh - var(--navbar-height, 80px));
+  background: rgba(26, 26, 26, 0.95);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: var(--navbar-height, 80px);
+  z-index: 900;
+  backdrop-filter: blur(10px);
+}
+
+.sidebar-content {
+  flex: 1;
+  padding: 2rem 1.5rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+.sidebar-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* New Story Button */
+.btn-new-story {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  border: none;
+  color: #1a1a1a;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.01em;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  margin-bottom: 2rem;
+}
+
+.btn-new-story:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.15);
+}
+
+.btn-new-story svg {
+  flex-shrink: 0;
+}
+
+/* Navigation */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Navigation Section */
+.nav-section {
+  margin-bottom: 0.5rem;
+}
+
+.nav-section-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  color: #e8e8e8;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.nav-section-header:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-section-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #a0a0a0;
+}
+
+.chevron {
+  color: #666;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.chevron.expanded {
+  transform: rotate(0deg);
+}
+
+.chevron:not(.expanded) {
+  transform: rotate(-90deg);
+}
+
+/* Section Items Container */
+.nav-section-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+  padding-left: 0.5rem;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Navigation Items */
+.nav-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  color: #c8c8c8;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e8e8e8;
+}
+
+.nav-item svg {
+  color: #888;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+.nav-item:hover svg {
+  color: #a0a0a0;
+}
+
+/* Ink AI Assistant - Special Styling */
+.nav-item-ink {
+  background: rgba(139, 92, 246, 0.05);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  color: #c4b5fd;
+  margin-top: 1rem;
+}
+
+.nav-item-ink:hover {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.25);
+  color: #ddd6fe;
+}
+
+.nav-item-ink svg {
+  color: #a78bfa;
+}
+
+.nav-item-ink:hover svg {
+  color: #c4b5fd;
+}
+
+.ink-badge {
+  margin-left: auto;
+  padding: 0.25rem 0.6rem;
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 800;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+  padding: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Logout Item */
+.nav-item-logout {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.05);
+}
+
+.nav-item-logout svg {
+  color: #ff6b6b;
+}
+
+.nav-item-logout:hover {
+  background: rgba(255, 107, 107, 0.1);
+  color: #ff8787;
+}
+
+.nav-item-logout:hover svg {
+  color: #ff8787;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .sidebar-content {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+}
+
+/* Active State (optional - add when you implement routing) */
+.nav-item.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.nav-item.active svg {
+  color: #ffffff;
+}

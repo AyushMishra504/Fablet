@@ -69,6 +69,9 @@ const Login = () => {
     <div className="register-container">
       <div className="register-card">
         <div className="register-header">
+          <button className="back-button " onClick={() => navigate("/")}>
+            ‹
+          </button>
           <div className="register-logo">Fablet</div>
           <h2 className="register-title">Login</h2>
           <p className="register-subtitle">Welcome back — let’s keep writing</p>

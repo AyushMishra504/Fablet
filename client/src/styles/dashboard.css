@@ -1,5 +1,13 @@
 /* Dashboard Container */
-.dashboard-container {
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.dashboard-wrapper {
+  --navbar-height: 80px;
+  --sidebar-width: 280px;
+  --sidebar-offset: var(--sidebar-width);
   min-height: 100vh;
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   color: #e8e8e8;
@@ -10,24 +18,31 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 5%;
+  padding: 0 5%;
+  height: var(--navbar-height);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 1000; /* Above sidebar */
   background: rgba(26, 26, 26, 0.8);
+}
+
+.navbar-left {
+  width: var(--sidebar-width);
+  display: flex;
+  align-items: center;
 }
 
 .navbar-logo {
   font-size: 1.5rem;
+  display: flex;
   font-weight: 800;
   letter-spacing: -0.02em;
   background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  cursor: pointer;
 }
 
 /* Navbar Right Section */
@@ -146,9 +161,9 @@
   width: 100%;
   display: flex;
   align-items: center;
+  background: rgba(255, 107, 107, 0.1);
   gap: 0.75rem;
   padding: 0.75rem 1rem;
-  background: transparent;
   border: none;
   border-radius: 8px;
   color: #e8e8e8;
@@ -160,9 +175,11 @@
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-.logout-button:hover {
-  background: rgba(255, 107, 107, 0.1);
+.logout-button:hover{
+  background: rgba(255, 107, 107, 0.4);
 }
+
+
 
 .dropdown-item svg {
   color: #a0a0a0;
@@ -215,11 +232,17 @@
 }
 
 /* Main Content Area */
+.dashboard-body {
+  display: flex;
+  min-height: calc(100vh - var(--navbar-height));
+}
+
 .dashboard-main {
+  flex: 1;
+  margin-left: var(--sidebar-offset);
   padding: 3rem 5%;
   max-width: 1400px;
-  margin: 0 auto;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - var(--navbar-height));
 }
 
 /* Loading State */
@@ -271,9 +294,22 @@
 
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+  .dashboard-wrapper {
+    --sidebar-width: 240px;
+  }
+}
+
 @media (max-width: 768px) {
+  .dashboard-wrapper {
+    --sidebar-offset: 0px;
+  }
   .dashboard-navbar {
     padding: 1rem 3%;
+  }
+
+  .navbar-left {
+    width: auto;
   }
 
   .navbar-logo {
