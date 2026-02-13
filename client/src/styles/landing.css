@@ -36,17 +36,17 @@ body {
   padding: 20px 10px;
   
   /* TEMPORARY BACKGROUND - Replace with your image */
-  /* background: linear-gradient(135deg, #0a1628 0%, #1a2642 50%, #0a1628 100%); */
+  background: linear-gradient(135deg, #0a1628 0%, #1a2642 50%, #0a1628 100%); 
   
-  /* TO ADD YOUR BACKGROUND IMAGE, UNCOMMENT AND UPDATE THIS: */
+  /* TO ADD YOUR BACKGROUND IMAGE, UNCOMMENT AND UPDATE THIS:
   background-image: url('C:\Users\rajde\Project S\Fablet\client\src\images\wallhaven-0172q1.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
- 
+ */
   
-  color: #ffffff;
-  overflow: hidden;
+  color: #ffff;
+  overflow: hidden; 
 }
 
 /* Starfield effect - temporary decoration */
@@ -124,6 +124,7 @@ body {
 .hero-subtitle {
   font-size: clamp(14px, 1.5vw, 18px);
   line-height: 1.6;
+  
   color: rgba(255, 255, 255, 0.9);
   font-weight: 300;
   max-width: 700px;

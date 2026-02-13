@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/dashboard.css";
 import Sidebar from "./Sidebar";
+import Logout from "./Logout";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Dashboard = () => {
         });
 
         if (res.status === 401) {
-          navigate("/register");
+          navigate("/login");
           return;
         }
 
@@ -57,39 +58,61 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-wrapper">
-      {/* Top Navbar */}
-      <nav className="dashboard-navbar">
-        <div>Fablet</div>
-        <Sidebar />
+      {/* Sidebar */}
+      <Sidebar />
 
-        <div className="navbar-right">
-          <div className="profile-wrapper">
-            <button
-              className="profile-button"
-              onClick={() => setShowProfileMenu(!showProfileMenu)}
-            >
-              <div className="profile-avatar">
-                {data.name?.[0]?.toUpperCase() ||
-                  data.email?.[0]?.toUpperCase() ||
-                  "U"}
-              </div>
-              <span className="profile-name">
-                {data.name || data.email || "User"}
-              </span>
-            </button>
+      {/* Main Content Area */}
+      <div className="dashboard-container">
+        {/* Top Navbar */}
+        <nav className="dashboard-navbar">
+          <div className="navbar-logo">Fablet</div>
 
-            {showProfileMenu && (
-              <div className="profile-dropdown">
-                {/* same dropdown content */}
+          <div className="navbar-right">
+            <div className="profile-wrapper">
+              <button
+                className="profile-button"
+                onClick={() => setShowProfileMenu(!showProfileMenu)}
+              >
+                <div className="profile-avatar">
+                  {data.name?.[0]?.toUpperCase() ||
+                    data.email?.[0]?.toUpperCase() ||
+                    "U"}
+                </div>
+                <span className="profile-name">
+                  {data.name || data.email || "User"}
+                </span>
+                <svg
+                  className={`chevron ${showProfileMenu ? "expanded" : ""}`}
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                >
+                  <path
+                    d="M4 6L8 10L12 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+
+              <div
+                className={`profile-dropdown ${showProfileMenu ? "open" : ""}`}
+              >
+                <button className="dropdown-item">Profile</button>
+                <button className="dropdown-item">Settings</button>
               </div>
-            )}
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
 
-      {/* Below Navbar Layout */}
-      <div className="dashboard-body">
-        <main className="dashboard-main">{/* Your page content here */}</main>
+        {/* Main Content */}
+        <main className="dashboard-main">
+          <h1>Welcome, {data.name || "User"}!</h1>
+          <p>Your dashboard content goes here</p>
+        </main>
       </div>
     </div>
   );
