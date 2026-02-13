@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/sidebar.css";
+import "../styles/Sidebar.css";
 import Logout from "./Logout";
 
 const Sidebar = () => {
