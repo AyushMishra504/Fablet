@@ -12,17 +12,17 @@ function LandingIndex() {
       setScrollY(window.scrollY);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Navigate to register page
   const handleSignIn = () => {
-    navigate('/register');
+    navigate("/login");
   };
 
   const handleCreateAccount = () => {
-    navigate('/register');
+    navigate("/register");
   };
 
   return (
@@ -75,49 +75,72 @@ function LandingIndex() {
             {/* Features Section */}
             <section className="content-block features-block">
               <div className="block-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                  <path d="M2 17l10 5 10-5"/>
-                  <path d="M2 12l10 5 10-5"/>
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                  <path d="M2 17l10 5 10-5" />
+                  <path d="M2 12l10 5 10-5" />
                 </svg>
               </div>
               <h3 className="block-title">Features</h3>
               <p className="block-description">
-                Discover powerful tools designed for modern storytellers. 
-                Organize your ideas, develop characters, and build immersive worlds 
-                with intelligent features that adapt to your creative process.
+                Discover powerful tools designed for modern storytellers.
+                Organize your ideas, develop characters, and build immersive
+                worlds with intelligent features that adapt to your creative
+                process.
               </p>
             </section>
 
             {/* Writing Tools Section */}
             <section className="content-block tools-block">
               <div className="block-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                 </svg>
               </div>
               <h3 className="block-title">Writing Tools</h3>
               <p className="block-description">
-                Access a comprehensive suite of writing tools including advanced 
-                text editors, grammar assistance, style suggestions, and formatting 
-                options that help you craft polished, professional content.
+                Access a comprehensive suite of writing tools including advanced
+                text editors, grammar assistance, style suggestions, and
+                formatting options that help you craft polished, professional
+                content.
               </p>
             </section>
 
             {/* AI Assistance Section */}
             <section className="content-block ai-block">
               <div className="block-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M12 16v-4"/>
-                  <path d="M12 8h.01"/>
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 16v-4" />
+                  <path d="M12 8h.01" />
                 </svg>
               </div>
               <h3 className="block-title">AI Assistance</h3>
               <p className="block-description">
-                Let our intelligent AI guide you through creative blocks, 
-                suggest plot developments, enhance dialogue, and provide 
+                Let our intelligent AI guide you through creative blocks,
+                suggest plot developments, enhance dialogue, and provide
                 real-time feedback to elevate your storytelling to new heights.
               </p>
             </section>
@@ -125,18 +148,25 @@ function LandingIndex() {
             {/* Community Section */}
             <section className="content-block community-block">
               <div className="block-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                  <circle cx="9" cy="7" r="4"/>
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
               </div>
               <h3 className="block-title">Community & Stories</h3>
               <p className="block-description">
-                Join a vibrant community of writers and readers. Share your work, 
-                receive constructive feedback, discover inspiring stories, and 
-                connect with fellow creators from around the world.
+                Join a vibrant community of writers and readers. Share your
+                work, receive constructive feedback, discover inspiring stories,
+                and connect with fellow creators from around the world.
               </p>
             </section>
           </div>
@@ -147,10 +177,10 @@ function LandingIndex() {
           <div className="feature-highlight">
             <h3 className="highlight-title">Start Your Creative Journey</h3>
             <p className="highlight-text">
-              Whether you're writing your first story or your fiftieth novel, 
-              Fablet provides the tools and support you need to bring your 
-              ideas to life. From initial concept to final draft, we're with 
-              you every step of the way.
+              Whether you're writing your first story or your fiftieth novel,
+              Fablet provides the tools and support you need to bring your ideas
+              to life. From initial concept to final draft, we're with you every
+              step of the way.
             </p>
             <button className="btn btn-cta" onClick={handleCreateAccount}>
               Get Started Today
@@ -172,25 +202,43 @@ function LandingIndex() {
             <div className="footer-column">
               <h5 className="footer-heading">Product</h5>
               <ul className="footer-list">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#templates">Templates</a></li>
+                <li>
+                  <a href="#features">Features</a>
+                </li>
+                <li>
+                  <a href="#pricing">Pricing</a>
+                </li>
+                <li>
+                  <a href="#templates">Templates</a>
+                </li>
               </ul>
             </div>
             <div className="footer-column">
               <h5 className="footer-heading">Resources</h5>
               <ul className="footer-list">
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#guides">Writing Guides</a></li>
-                <li><a href="#community">Community</a></li>
+                <li>
+                  <a href="#blog">Blog</a>
+                </li>
+                <li>
+                  <a href="#guides">Writing Guides</a>
+                </li>
+                <li>
+                  <a href="#community">Community</a>
+                </li>
               </ul>
             </div>
             <div className="footer-column">
               <h5 className="footer-heading">Company</h5>
               <ul className="footer-list">
-                <li><a href="#about">About</a></li>
-                <li><a href="#careers">Careers</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li>
+                  <a href="#about">About</a>
+                </li>
+                <li>
+                  <a href="#careers">Careers</a>
+                </li>
+                <li>
+                  <a href="#contact">Contact</a>
+                </li>
               </ul>
             </div>
           </div>
