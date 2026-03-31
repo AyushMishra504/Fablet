@@ -5,7 +5,7 @@ const JWT_EXPIRES_IN = "7d";
 
 // Generate JWT token
 export const generateToken = (userId) => {
-  return jwt.sign({ userId }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+  return jwt.sign({ id: userId }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 };
 
 // Verify JWT token

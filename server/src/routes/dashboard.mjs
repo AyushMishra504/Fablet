@@ -1,14 +1,17 @@
 import { Router } from "express";
-import { tokenVerification } from "./auth/tokenVerification.mjs";
 import User from "../mongoose/schemas/newUser.mjs";
+import auth from "../middleware/auth.mjs";
 
 const router = Router();
-router.use(tokenVerification);
 
-router.get("/api/dashboard", async (req, res) => {
-  const userId = req.user.userId;
-  const currentUser = await User.findById(userId);
-  res.json({ user: currentUser });
+router.get("/api/dashboard", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+
+    res.json({ user });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 export default router;

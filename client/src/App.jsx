@@ -1,20 +1,20 @@
-import Register from "./pages/Register.jsx";
-import LandingIndex from "./pages/landingIndex";
-import Login from "./pages/Login.jsx";
-import Dashboard from "./pages/Dashboard";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LandingIndex from "./pages/landingIndex";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import Editor from "./pages/Editor";
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingIndex />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/editor/:id" element={<Editor />} />
       </Routes>
     </BrowserRouter>
   );
 }
-
-export default App;

@@ -1,0 +1,601 @@
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap");
+
+/* ── Scoped to .ed-root — won't leak ── */
+.ed-root {
+  --ink: #2d2926;
+  --paper: #fdfcf8;
+  --bg: #f5f2ea;
+  --accent: #c4a484;
+  --ai: #4f46e5;
+  --ai-hover: #4338ca;
+  --ai-light: #eef2ff;
+
+  --border: #e7e5e0;
+  --border-light: #f0ede8;
+
+  --text: #2d2926;
+  --text-sub: #78716c;
+  --text-muted: #a8a29e;
+  --text-white: #ffffff;
+
+  --header-bg: #ffffff;
+  --panel-bg: #ffffff;
+  --toolbar-hover: #f5f4f2;
+  --quick-bg: #f7f6f3;
+  --quick-hover: #eeece8;
+  --bubble-ai: #f5f4f2;
+  --bubble-ai-text: #44403c;
+  --bubble-user: #4f46e5;
+  --suggestion-bg: #fdfcf8;
+
+  --input-bg: #f7f6f3;
+  --input-border: #e7e5e0;
+
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.ed-root *, .ed-root *::before, .ed-root *::after {
+  box-sizing: border-box;
+}
+
+/* hide scrollbar */
+.ed-canvas::-webkit-scrollbar,
+.ed-chat::-webkit-scrollbar { display: none; }
+.ed-canvas, .ed-chat { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Header ── */
+.ed-header {
+  height: 64px;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.ed-header-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.ed-logo-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+}
+
+.ed-logo-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--ink);
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: "Crimson Pro", serif;
+  font-size: 1.25rem;
+  font-style: italic;
+}
+
+.ed-logo-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.ed-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-left: 1px solid var(--border);
+  padding-left: 2rem;
+}
+
+.ed-toolbar-btn {
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  border: none;
+  background: transparent;
+  color: var(--text-sub);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background 0.15s, color 0.15s;
+}
+
+.ed-toolbar-btn:hover {
+  background: var(--toolbar-hover);
+  color: var(--text);
+}
+
+.ed-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.ed-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.ed-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  transition: background 0.3s;
+}
+
+.ed-dot-saved  { background: #4ade80; }
+.ed-dot-saving { background: #d1d5db; animation: ed-pulse 1s ease-in-out infinite; }
+.ed-dot-error  { background: #f87171; }
+
+@keyframes ed-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.ed-wordcount {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.ed-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border);
+}
+
+.ed-publish-btn {
+  background: var(--ink);
+  color: white;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  transition: opacity 0.2s;
+}
+
+.ed-publish-btn:hover { opacity: 0.85; }
+
+/* ── Save Draft Button ── */
+.ed-save-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: #16a34a;
+  background: rgba(22, 163, 74, 0.08);
+  border: 1px solid rgba(22, 163, 74, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  border: 1px solid rgba(22, 163, 74, 0.3);
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.ed-save-btn:hover:not(:disabled) {
+  background: rgba(22, 163, 74, 0.15);
+}
+
+.ed-save-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.ed-open-panel-btn {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s;
+}
+
+.ed-open-panel-btn:hover { transform: scale(1.1); }
+
+/* ── Body ── */
+.ed-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Writing Canvas ── */
+.ed-canvas {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--paper);
+  background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuACW3qg8VoEXoFI6mHWeQ48ybtY98WAcEyo5HlX6Oo_CsCXIuMdEnxcXWNr5pfmbJmq3N0N5mwp6cyGSkfGFr2rJ6Ss4pwPczwue90223xI7ITmn-meTu-s1pvJp7KyQq2VzVZx_MbG-PXwp37L1SvQq7qSNdAwhDsb2nHPCr1geJLBpzA3-3QiFIRqe9XVJfIFZVNI_ByDdLaQ_-bjkQu5DceRQPzYJF_puERkCIHJjPte2Ocaeg76ArhufKU7AmvdPQkussiSyzA');
+}
+
+.ed-paper {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 6rem 3rem;
+  min-height: 100%;
+}
+
+.ed-title-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: "Crimson Pro", serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 3rem;
+  line-height: 1.2;
+}
+
+.ed-title-input::placeholder { color: #d6d3d1; }
+
+.ed-editor {
+  width: 100%;
+  min-height: 60vh;
+  font-family: "Crimson Pro", serif;
+  font-size: 1.25rem;
+  line-height: 1.9;
+  color: #44403c;
+  outline: none;
+}
+
+.ed-editor:empty::before {
+  content: attr(data-placeholder);
+  color: #d6d3d1;
+  pointer-events: none;
+}
+
+.ed-para {
+  margin-bottom: 1.5rem;
+}
+
+/* ── AI Panel ── */
+.ed-panel {
+  width: 380px;
+  border-left: 1px solid var(--border);
+  background: var(--panel-bg);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  transition: width 0.3s ease;
+}
+
+.ed-panel-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.ed-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--text-sub);
+  font-size: 0.9rem;
+}
+
+.ed-ai-orb {
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  flex-shrink: 0;
+}
+
+.ed-orb-lg {
+  width: 28px;
+  height: 28px;
+}
+
+.ed-panel-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+  border-radius: 0.375rem;
+  transition: color 0.15s, background 0.15s;
+}
+
+.ed-panel-close:hover {
+  color: var(--text);
+  background: var(--toolbar-hover);
+}
+
+/* ── Quick Actions ── */
+.ed-quick-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+.ed-quick-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.75rem 0.5rem;
+  border-radius: 0.75rem;
+  border: none;
+  background: var(--quick-bg);
+  color: var(--text-muted);
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  transition: background 0.15s, color 0.15s;
+}
+
+.ed-quick-btn:hover {
+  background: var(--quick-hover);
+  color: var(--text);
+}
+
+/* ── Chat ── */
+.ed-chat {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ed-msg-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ed-msg-ai { align-items: flex-start; }
+.ed-msg-user { align-items: flex-end; }
+
+.ed-msg-bubble {
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  max-width: 85%;
+  line-height: 1.6;
+}
+
+.ed-bubble-ai {
+  background: var(--bubble-ai);
+  color: var(--bubble-ai-text);
+  border-top-left-radius: 0.25rem;
+}
+
+.ed-bubble-user {
+  background: var(--bubble-user);
+  color: white;
+  border-top-right-radius: 0.25rem;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
+}
+
+.ed-msg-time {
+  font-size: 0.625rem;
+  color: var(--text-muted);
+  padding: 0 0.25rem;
+}
+
+/* ── Suggestion Card ── */
+.ed-suggestion-card {
+  border: 1px solid var(--border-light);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  background: var(--suggestion-bg);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.ed-suggestion-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--ai);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.ed-suggestion-text {
+  font-size: 0.875rem;
+  color: var(--text-sub);
+  font-style: italic;
+  line-height: 1.6;
+  margin: 0 0 0.75rem;
+}
+
+.ed-suggestion-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.ed-apply-btn {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ai);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+}
+
+.ed-apply-btn:hover { text-decoration: underline; }
+
+.ed-ignore-btn {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+}
+
+/* ── Input Area ── */
+.ed-input-area {
+  padding: 1rem;
+  border-top: 1px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+.ed-autosuggest-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.ed-autosuggest-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Mini toggle */
+.ed-toggle {
+  position: relative;
+  width: 32px;
+  height: 16px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  padding: 0;
+}
+
+.ed-toggle-on { background: var(--ai); }
+.ed-toggle-off { background: #d1d5db; }
+
+.ed-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  transition: transform 0.2s;
+}
+
+.ed-thumb-on { transform: translateX(18px); }
+.ed-thumb-off { transform: translateX(2px); }
+
+.ed-textarea-wrap {
+  position: relative;
+}
+
+.ed-textarea {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 0.75rem;
+  padding: 0.75rem 3rem 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-family: "Inter", sans-serif;
+  color: var(--text);
+  resize: none;
+  height: 80px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.ed-textarea::placeholder { color: var(--text-muted); }
+
+.ed-textarea:focus {
+  border-color: var(--ai);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.12);
+}
+
+.ed-send-btn {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  width: 28px;
+  height: 28px;
+  background: var(--ai);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.ed-send-btn:hover { background: var(--ai-hover); }
+
+/* ── Floating button ── */
+.ed-float-btn {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  width: 48px;
+  height: 48px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  transition: transform 0.2s;
+}
+
+.ed-float-btn:hover { transform: scale(1.1); }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .ed-panel { display: none; }
+  .ed-toolbar { display: none; }
+  .ed-paper { padding: 3rem 1.5rem; }
+  .ed-title-input { font-size: 2rem; }
+}
