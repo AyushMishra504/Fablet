@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 mongoose
-  .connect("mongodb://localhost/fable")
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("Connected to Database"))
   .catch((err) => console.log(`Error: ${err}`));
 

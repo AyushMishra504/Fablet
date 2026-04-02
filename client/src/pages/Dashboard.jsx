@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../ThemeContext";
 import "../styles/dashboard.css";
 
 
@@ -34,11 +35,11 @@ const NavIcon = ({ path, path2 }) => (
 
 const DarkToggle = ({ dark, setDark }) => (
   <button
-    onClick={() => setDark(!dark)}
+    onClick={() => setDark(prev => !prev)}
     className={`db-toggle ${dark ? "db-toggle-on" : "db-toggle-off"}`}
     aria-label="Toggle dark mode"
   >
-    <span className={`db-toggle-thumb ${dark ? "db-thumb-on" : "db-thumb-off"}`}>
+    <span className={`db-toggle-thumb ${dark ? "db-thumb-on" : ""}`}>
       {dark ? "🌙" : "☀️"}
     </span>
   </button>
@@ -46,12 +47,15 @@ const DarkToggle = ({ dark, setDark }) => (
 
 
 export default function Dashboard() {
-  const [dark, setDark] = useState(false);
+  const { dark, setDark } = useTheme();
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const [stories, setStories] = useState([]);
   const [error, setError] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(null); // story._id or null
+  const [deleteConfirm, setDeleteConfirm] = useState(null); // story object or null
+  const [showSignOutConfirm, setShowSignOutConfirm] = useState(false);
   const navigate = useNavigate();
 
   const handleCreateStory = async () => {
@@ -64,6 +68,45 @@ export default function Dashboard() {
 
     navigate(`/editor/${data._id}`);
   }
+
+  const handleDeleteStory = async () => {
+    if (!deleteConfirm) return;
+    try {
+      const res = await fetch(`/api/stories/${deleteConfirm._id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (res.ok) {
+        setStories((prev) => prev.filter((s) => s._id !== deleteConfirm._id));
+      }
+    } catch (err) {
+      console.error("Delete failed", err);
+    } finally {
+      setDeleteConfirm(null);
+      setMenuOpen(null);
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      const res = await fetch("/api/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+      if (res.ok) {
+        navigate("/");
+      }
+    } catch (err) {
+      console.error("Logout failed", err);
+    }
+  };
+
+  useEffect(() => {
+    const handleClickOutside = () => setMenuOpen(null);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
   useEffect(() => {
     const fetchAll = async () => {
       try {
@@ -141,6 +184,15 @@ export default function Dashboard() {
               {label}
             </a>
           ))}
+          {/* Sign Out Button */}
+          <button 
+            className="db-nav-link" 
+            style={{ marginTop: "auto", border: "none", background: "transparent", cursor: "pointer", width: "100%", textAlign: "left", fontFamily: "inherit", padding: "0.625rem 1rem" }}
+            onClick={() => setShowSignOutConfirm(true)}
+          >
+            <NavIcon path="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            Sign Out
+          </button>
         </nav>
 
         <div className="db-sidebar-user">
@@ -217,14 +269,47 @@ export default function Dashboard() {
                     <span className="db-card-words">
                       {(story.wordCount || 0).toLocaleString()} words
                     </span>
-                    <button
-                      className="db-card-menu-btn"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <svg className="db-card-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-                      </svg>
-                    </button>
+                    <div style={{ position: 'relative' }}>
+                      <button
+                        className="db-card-menu-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setMenuOpen(menuOpen === story._id ? null : story._id);
+                        }}
+                      >
+                        <svg className="db-card-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                        </svg>
+                      </button>
+                      {menuOpen === story._id && (
+                        <div className="db-card-dropdown" onClick={(e) => e.stopPropagation()}>
+                          <button
+                            className="db-dropdown-item db-dropdown-publish"
+                            onClick={() => {
+                              setMenuOpen(null);
+                              // Publish logic here later
+                            }}
+                          >
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: 16, height: 16 }}>
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                            </svg>
+                            Publish
+                          </button>
+                          <button
+                            className="db-dropdown-item db-dropdown-delete"
+                            onClick={() => {
+                              setDeleteConfirm(story);
+                              setMenuOpen(null);
+                            }}
+                          >
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: 16, height: 16 }}>
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                            Delete
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </article>
@@ -272,6 +357,55 @@ export default function Dashboard() {
         </footer>
 
       </main>
+
+      {/* ── Delete Confirmation Dialog ── */}
+      {deleteConfirm && (
+        <div className="db-modal-overlay" onClick={() => setDeleteConfirm(null)}>
+          <div className="db-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="db-modal-icon">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: 28, height: 28 }}>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </div>
+            <h3 className="db-modal-title">Delete Story</h3>
+            <p className="db-modal-text">
+              Are you sure you want to delete "<strong>{deleteConfirm.title || "Untitled Story"}</strong>"? This action cannot be undone.
+            </p>
+            <div className="db-modal-actions">
+              <button className="db-modal-cancel" onClick={() => setDeleteConfirm(null)}>Cancel</button>
+              <button className="db-modal-delete" onClick={handleDeleteStory}>Delete</button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* ── Sign Out Confirmation Dialog ── */}
+      {showSignOutConfirm && (
+        <div className="db-modal-overlay" onClick={() => setShowSignOutConfirm(false)}>
+          <div className="db-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="db-modal-icon" style={{ color: '#4f46e5', background: 'rgba(79, 70, 229, 0.1)' }}>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: 28, height: 28 }}>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+            </div>
+            <h3 className="db-modal-title">Sign Out</h3>
+            <p className="db-modal-text">
+              Are you sure you want to sign out of Fablet? You'll need to log back in to access your stories.
+            </p>
+            <div className="db-modal-actions">
+              <button className="db-modal-cancel" onClick={() => setShowSignOutConfirm(false)}>Cancel</button>
+              <button 
+                className="db-modal-delete" 
+                style={{ background: '#4f46e5' }}
+                onMouseOver={(e) => e.currentTarget.style.background = '#4338ca'}
+                onMouseOut={(e) => e.currentTarget.style.background = '#4f46e5'}
+                onClick={handleSignOut}
+              >
+                Sign Out
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

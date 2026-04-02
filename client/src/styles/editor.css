@@ -42,6 +42,39 @@
 
 .ed-root *, .ed-root *::before, .ed-root *::after {
   box-sizing: border-box;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* ── Dark Mode ── */
+.ed-dark {
+  --ink: #f1f5f9;
+  --paper: #1a1a2e;
+  --bg: #0f0f1a;
+  --accent: #a8927d;
+  --ai: #818cf8;
+  --ai-hover: #6366f1;
+  --ai-light: rgba(99, 102, 241, 0.15);
+
+  --border: #2a2a3e;
+  --border-light: #232338;
+
+  --text: #e2e8f0;
+  --text-sub: #94a3b8;
+  --text-muted: #64748b;
+  --text-white: #ffffff;
+
+  --header-bg: #16162a;
+  --panel-bg: #16162a;
+  --toolbar-hover: rgba(255, 255, 255, 0.06);
+  --quick-bg: rgba(255, 255, 255, 0.04);
+  --quick-hover: rgba(255, 255, 255, 0.08);
+  --bubble-ai: rgba(255, 255, 255, 0.06);
+  --bubble-ai-text: #cbd5e1;
+  --bubble-user: #6366f1;
+  --suggestion-bg: rgba(255, 255, 255, 0.03);
+
+  --input-bg: rgba(255, 255, 255, 0.04);
+  --input-border: #2a2a3e;
 }
 
 /* hide scrollbar */
@@ -210,7 +243,7 @@
 }
 
 .ed-open-panel-btn {
-  background: white;
+  background: var(--header-bg);
   border: 1px solid var(--border);
   border-radius: 9999px;
   width: 36px;
@@ -269,7 +302,7 @@
   font-family: "Crimson Pro", serif;
   font-size: 1.25rem;
   line-height: 1.9;
-  color: #44403c;
+  color: var(--text-sub);
   outline: none;
 }
 
@@ -579,7 +612,7 @@
   bottom: 1.5rem;
   width: 48px;
   height: 48px;
-  background: white;
+  background: var(--header-bg);
   border: 1px solid var(--border);
   border-radius: 9999px;
   display: flex;
@@ -598,4 +631,32 @@
   .ed-toolbar { display: none; }
   .ed-paper { padding: 3rem 1.5rem; }
   .ed-title-input { font-size: 2rem; }
+}
+
+/* ── Dark Mode Overrides ── */
+.ed-dark .ed-canvas {
+  background-image: none;
+  background-color: var(--paper);
+}
+
+.ed-dark .ed-title-input::placeholder {
+  color: #4a4a5e;
+}
+
+.ed-dark .ed-editor:empty::before {
+  color: #4a4a5e;
+}
+
+.ed-dark .ed-logo-icon {
+  background: var(--ai);
+}
+
+.ed-dark .ed-publish-btn {
+  background: var(--ai);
+}
+
+.ed-dark .ed-save-btn {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.08);
+  border-color: rgba(74, 222, 128, 0.2);
 }
