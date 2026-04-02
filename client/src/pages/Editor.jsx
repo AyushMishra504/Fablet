@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTheme } from "../ThemeContext";
 import "../styles/editor.css";
 
 const INITIAL_CONTENT = ["Start writing your story here..."];
@@ -27,15 +28,18 @@ const AI_MESSAGES = [
 
 export default function Editor() {
   const { id } = useParams();
+  const { dark } = useTheme();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
   const [panelOpen, setPanelOpen] = useState(true);
   const [autoSuggest, setAutoSuggest] = useState(true);
-  const [saveStatus, setSaveStatus] = useState("unsaved"); // "unsaved" | "saving" | "saved" | "error"
+  const [saveStatus, setSaveStatus] = useState("saved"); // "unsaved" | "saving" | "saved" | "error"
   const [wordCount, setWordCount] = useState(0);
   const [aiInput, setAiInput] = useState("");
   const [messages, setMessages] = useState(AI_MESSAGES);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const editorRef = useRef(null);
   const chatEndRef = useRef(null);
 
@@ -66,6 +70,28 @@ export default function Editor() {
     setSaveStatus("unsaved");
   };
 
+  const handleBack = () => {
+    if (saveStatus === "unsaved") {
+      setShowConfirmDialog(true);
+    } else {
+      navigate("/Dashboard");
+    }
+  };
+
+  const handleDeleteEditorStory = async () => {
+    try {
+      const res = await fetch(`/api/stories/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (res.ok) {
+        navigate("/Dashboard");
+      }
+    } catch (err) {
+      console.error("Failed to delete story", err);
+    }
+  };
+
   // Scroll chat to bottom on new message
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -91,7 +117,11 @@ useEffect(() => {
 
     if (editorRef.current) {
       editorRef.current.innerText = data.content || "";
+      const words = (data.content || "").trim().split(/\s+/).filter(Boolean).length;
+      setWordCount(words);
     }
+    
+    setSaveStatus("saved");
   };
 
   if (id) fetchStory();
@@ -114,17 +144,93 @@ useEffect(() => {
   };
 
   return (
-    <div className="ed-root">
+    <div className={`ed-root ${dark ? "ed-dark" : ""}`}>
+
+      {/* ── Unsaved Changes Dialog ── */}
+      {showConfirmDialog && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}>
+          <div style={{ backgroundColor: 'var(--header-bg)', padding: '24px', borderRadius: '12px', maxWidth: '400px', width: '90%', boxShadow: '0 8px 32px rgba(0,0,0,0.3)', color: 'var(--text)', border: '1px solid var(--border)' }}>
+            <h3 style={{ margin: '0 0 12px 0', fontSize: '18px', fontWeight: '600', fontFamily: 'Inter, sans-serif' }}>Unsaved Changes</h3>
+            <p style={{ margin: '0 0 24px 0', fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.5', fontFamily: 'Inter, sans-serif' }}>You have unsaved changes. Are you sure you want to go back? Your unsaved writing will be lost.</p>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
+              <button 
+                onClick={() => setShowConfirmDialog(false)}
+                style={{ padding: '8px 16px', borderRadius: '6px', border: '1px solid var(--border)', background: 'transparent', color: 'var(--text)', cursor: 'pointer', fontFamily: 'Inter, sans-serif', fontSize: '14px', fontWeight: '500', transition: 'background 0.2s' }}
+                onMouseOver={(e) => e.target.style.background = 'var(--toolbar-hover)'}
+                onMouseOut={(e) => e.target.style.background = 'transparent'}
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={() => navigate("/Dashboard")}
+                style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', background: '#dc2626', color: '#fff', cursor: 'pointer', fontWeight: '600', fontFamily: 'Inter, sans-serif', fontSize: '14px', transition: 'background 0.2s' }}
+                onMouseOver={(e) => e.target.style.background = '#b91c1c'}
+                onMouseOut={(e) => e.target.style.background = '#dc2626'}
+              >
+                Discard Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Delete Story Dialog ── */}
+      {showDeleteConfirm && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}>
+          <div style={{ backgroundColor: 'var(--header-bg)', padding: '24px', borderRadius: '12px', maxWidth: '400px', width: '90%', boxShadow: '0 8px 32px rgba(0,0,0,0.3)', color: 'var(--text)', border: '1px solid var(--border)', textAlign: 'center' }}>
+            <div style={{ width: '56px', height: '56px', borderRadius: '9999px', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: 28, height: 28 }}>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </div>
+            <h3 style={{ margin: '0 0 12px 0', fontSize: '18px', fontWeight: '600', fontFamily: 'Inter, sans-serif' }}>Delete Story</h3>
+            <p style={{ margin: '0 0 24px 0', fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.5', fontFamily: 'Inter, sans-serif' }}>
+              Are you sure you want to delete this story? This action cannot be undone.
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '12px' }}>
+              <button 
+                onClick={() => setShowDeleteConfirm(false)}
+                style={{ flex: 1, padding: '10px 16px', borderRadius: '8px', border: '1px solid var(--border)', background: 'transparent', color: 'var(--text)', cursor: 'pointer', fontFamily: 'Inter, sans-serif', fontSize: '14px', fontWeight: '500', transition: 'background 0.2s' }}
+                onMouseOver={(e) => e.target.style.background = 'var(--toolbar-hover)'}
+                onMouseOut={(e) => e.target.style.background = 'transparent'}
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleDeleteEditorStory}
+                style={{ flex: 1, padding: '10px 16px', borderRadius: '8px', border: 'none', background: '#ef4444', color: '#fff', cursor: 'pointer', fontWeight: '500', fontFamily: 'Inter, sans-serif', fontSize: '14px', transition: 'background 0.2s' }}
+                onMouseOver={(e) => e.target.style.background = '#dc2626'}
+                onMouseOut={(e) => e.target.style.background = '#ef4444'}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── Header ── */}
       <header className="ed-header">
-        <div className="ed-header-left">
-          <button className="ed-logo-btn" onClick={() => navigate("/Dashboard")}>
+        <div className="ed-header-left">          
+          <button className="ed-logo-btn" onClick={handleBack}>
             <div className="ed-logo-icon">F</div>
             <span className="ed-logo-text">Fablet</span>
           </button>
+          <button 
+            className="ed-toolbar-btn" 
+            onClick={handleBack} 
+            title="Back to Dashboard"
+            style={{ display: 'flex', alignItems: 'center', gap: '2px', padding: '4px 4px', width: 'auto', borderRadius: '2px' }}
+          >
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: 18, height: 18 }}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back
+          </button>
+          
 
           <div className="ed-toolbar">
+            
             {[
               { title: "Bold", path: "M6 4h8a4 4 0 014 4 4 4 0 01-4 4H6z M6 12h9a4 4 0 014 4 4 4 0 01-4 4H6z" },
               { title: "Italic", path: "M10 20l4-16m-4 0h4m-6 16h4" },
@@ -158,7 +264,7 @@ useEffect(() => {
               "Unsaved changes"
             }</span>
           </div>
-          <span className="ed-wordcount">{wordCount.toLocaleString()} words</span>
+          <span className="ed-wordcount">{wordCount.toLocaleString()} {wordCount === 1 ? "word" : "words"}</span>
           <div className="ed-divider" />
           <button
             className="ed-save-btn"
@@ -172,6 +278,35 @@ useEffect(() => {
             </svg>
             {saveStatus === "saving" ? "Saving..." : "Save Draft"}
           </button>
+          
+          <button 
+            onClick={() => setShowDeleteConfirm(true)}
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              width: '36px', 
+              height: '36px', 
+              borderRadius: '9999px', 
+              background: '#ef4444',
+              border: '1px solid transparent',
+              color: '#ffffff',
+              cursor: 'pointer',
+              transition: 'all 0.2s'
+            }}
+            title="Delete Story"
+            onMouseOver={(e) => {
+              e.currentTarget.style.background = '#dc2626';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.background = '#ef4444';
+            }}
+          >
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: 18, height: 18 }}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
+
           <button className="ed-publish-btn">Publish</button>
           {!panelOpen && (
             <button className="ed-open-panel-btn" onClick={() => setPanelOpen(true)} title="Open Ink Assistant">
@@ -187,6 +322,7 @@ useEffect(() => {
         {/* Writing Canvas */}
         <section className="ed-canvas">
           <div className="ed-paper">
+            
             <input
               className="ed-title-input"
               placeholder="Title of your masterpiece..."

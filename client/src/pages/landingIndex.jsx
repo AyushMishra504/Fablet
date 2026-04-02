@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useTheme } from "../ThemeContext";
 import "../styles/landing.css";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -21,7 +21,7 @@ const DarkModeToggle = ({ dark, setDark }) => (
 );
 
 export default function App() {
-  const [dark, setDark] = useState(false);
+  const { dark, setDark } = useTheme();
   const navigate = useNavigate();
 
   return (
