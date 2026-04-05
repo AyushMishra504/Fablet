@@ -248,7 +248,11 @@ export default function Dashboard() {
               >
                 <div
                   className="db-card-image-wrap"
-                  style={{ background: CARD_GRADIENTS[idx % CARD_GRADIENTS.length] }}
+                  style={{
+                    background: story.coverImage
+                      ? `url(${story.coverImage}) center/cover no-repeat`
+                      : CARD_GRADIENTS[idx % CARD_GRADIENTS.length],
+                  }}
                 >
                   <span
                     className={`db-badge ${
@@ -265,6 +269,17 @@ export default function Dashboard() {
                   <p className="db-card-updated">
                     Updated {timeAgo(story.updatedAt)}
                   </p>
+                  {story.genre && story.genre.length > 0 && (
+                    <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', marginBottom: '8px' }}>
+                      {story.genre.map((g) => (
+                        <span key={g} style={{
+                          fontSize: '0.65rem', fontWeight: 500, padding: '2px 8px',
+                          borderRadius: '9999px', background: 'var(--ai-light)', color: 'var(--ai)',
+                          fontFamily: 'Inter, sans-serif',
+                        }}>{g}</span>
+                      ))}
+                    </div>
+                  )}
                   <div className="db-card-footer">
                     <span className="db-card-words">
                       {(story.wordCount || 0).toLocaleString()} words

@@ -28,8 +28,55 @@ const StorySchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+
+    // ── Story Settings ──
+    description: {
+      type: String,
+      default: "",
+      maxlength: 500,
+    },
+
+    genre: [{
+      type: String,
+    }],
+
+    tags: [{
+      type: String,
+    }],
+
+    language: {
+      type: String,
+      default: "English",
+    },
+
+    contentRating: {
+      type: String,
+      enum: ["everyone", "teen", "mature"],
+      default: "everyone",
+    },
+
+    penName: {
+      type: String,
+      default: "",
+    },
+
+    visibility: {
+      type: String,
+      enum: ["public", "private"],
+      default: "private",
+    },
+
+    coverImage: {
+      type: String,
+      default: "",
+    },
+
+    coverImagePublicId: {
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true }
 );
 
-export default mongoose.model("Story", StorySchema);
+export default mongoose.model("Story", StorySchema);
