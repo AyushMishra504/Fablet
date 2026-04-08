@@ -1,0 +1,102 @@
+/* ===== Publish Button ===== */
+
+.publish-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.publish-button:hover {
+  background: rgba(102, 126, 234, 0.25);
+}
+
+/* ===== Modal ===== */
+.publish-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.publish-modal-content {
+  background: linear-gradient(135deg, rgba(40, 40, 40, 0.95) 0%, rgba(30, 30, 30, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 2.5rem;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.publish-modal-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #e8e8e8;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.publish-modal-message {
+  font-size: 1.05rem;
+  color: #a0a0a0;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.publish-modal-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.publish-btn-cancel, .publish-btn-confirm {
+  padding: 0.875rem 1.75rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  letter-spacing: 0.02em;
+}
+
+.publish-btn-cancel {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: #e8e8e8;
+}
+
+.publish-btn-cancel:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.publish-btn-confirm {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.publish-btn-confirm:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+.publish-btn-cancel:disabled,
+.publish-btn-confirm:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

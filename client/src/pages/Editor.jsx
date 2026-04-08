@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTheme } from "../ThemeContext";
+import ConfirmPublishStory from "./ConfirmPublishStory";
 import "../styles/editor.css";
 
 const INITIAL_CONTENT = ["Start writing your story here..."];
@@ -78,6 +79,7 @@ export default function Editor() {
     }
   };
 
+
   const handleDeleteEditorStory = async () => {
     try {
       const res = await fetch(`/api/stories/${id}`, {
@@ -113,6 +115,11 @@ useEffect(() => {
 
     const data = await res.json();
 
+    if (data.status === "published") {
+      navigate(`/view/${id}`);
+      return;
+    }
+
     setTitle(data.title || "");
 
     if (editorRef.current) {
@@ -125,7 +132,7 @@ useEffect(() => {
   };
 
   if (id) fetchStory();
-}, [id]);
+}, [id, navigate]);
 
   const handleSendAI = () => {
     if (!aiInput.trim()) return;
@@ -307,7 +314,7 @@ useEffect(() => {
             </svg>
           </button>
 
-          <button className="ed-publish-btn">Publish</button>
+          <ConfirmPublishStory storyId={id} className="ed-publish-btn" title={title} content={content} />
           {!panelOpen && (
             <button className="ed-open-panel-btn" onClick={() => setPanelOpen(true)} title="Open Ink Assistant">
               <div className="ed-ai-orb" />

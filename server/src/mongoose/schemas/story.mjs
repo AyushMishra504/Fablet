@@ -8,6 +8,11 @@ const StorySchema = new mongoose.Schema(
       required: true,
     },
 
+    name: {
+      type: String,
+      required: true,
+    },
+
     title: {
       type: String,
       default: "Untitled Story",
