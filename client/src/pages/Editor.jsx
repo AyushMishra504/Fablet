@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTheme } from "../ThemeContext";
+import ConfirmPublishStory from "./ConfirmPublishStory";
 import "../styles/editor.css";
 
 const INITIAL_CONTENT = ["Start writing your story here..."];
@@ -155,6 +156,7 @@ export default function Editor() {
     }
   };
 
+
   const handleDeleteEditorStory = async () => {
     try {
       const res = await fetch(`/api/stories/${id}`, {
@@ -230,6 +232,11 @@ useEffect(() => {
 
     const data = await res.json();
 
+    if (data.status === "published") {
+      navigate(`/view/${id}`);
+      return;
+    }
+
     setTitle(data.title || "");
 
     if (editorRef.current) {
@@ -256,7 +263,7 @@ useEffect(() => {
   };
 
   if (id) fetchStory();
-}, [id]);
+}, [id, navigate]);
 
   // ── Cover image upload ──
   const handleCoverUpload = async (e) => {
@@ -549,17 +556,7 @@ useEffect(() => {
             </svg>
           </button>
 
-          <button
-            className="ed-settings-btn"
-            onClick={() => setShowSettings(true)}
-            title="Story Settings"
-          >
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ width: 18, height: 18 }}>
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            Settings
-          </button>
+          <ConfirmPublishStory storyId={id} className="ed-publish-btn" title={title} content={content} />
           {!panelOpen && (
             <button className="ed-open-panel-btn" onClick={() => setPanelOpen(true)} title="Open Ink Assistant">
               <div className="ed-ai-orb" />
