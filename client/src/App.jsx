@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Editor from "./pages/Editor";
 import Explore from "./pages/Explore";
+import Settings from "./pages/Settings";
 import ViewStory from "./pages/ViewStory";
 import DashboardLayout from "./pages/DashboardLayout";
 
@@ -20,6 +21,7 @@ export default function App() {
           <Route element={<DashboardLayout />}>
             <Route path="/Dashboard" element={<Dashboard />} />
             <Route path="/explore" element={<Explore />} />
+            <Route path="/settings" element={<Settings />} />
           </Route>
           <Route path="/editor/:id" element={<Editor />} />
           <Route path="/view/:id" element={<ViewStory />} />
