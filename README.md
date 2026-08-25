@@ -1,14 +1,14 @@
 <div align="center">
 
-# ✍️ Fablet
+# Fablet
 
 **A modern, AI-powered writing platform for authors.**
 
 <br/>
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Now-6c63ff?style=for-the-badge&logo=vercel&logoColor=white)](https://fablet.vercel.app)
-[![GitHub Stars](https://img.shields.io/github/stars/AyushMishra504/Fablet?style=for-the-badge&logo=github&color=f9c74f)](https://github.com/AyushMishra504/Fablet/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/AyushMishra504/Fablet?style=for-the-badge&logo=github&color=43aa8b)](https://github.com/AyushMishra504/Fablet/network)
+[![GitHub Stars](https://img.shields.io/github/stars/itsrajdeep/Fablet?style=for-the-badge&logo=github&color=f9c74f)](https://github.com/itsrajdeep/Fablet/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/itsrajdeep/Fablet?style=for-the-badge&logo=github&color=43aa8b)](https://github.com/itsrajdeep/Fablet/network)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
 <br/>
@@ -17,34 +17,34 @@
 
 <br/>
 
-[🚀 Live Demo](https://fablet.vercel.app) &nbsp;&nbsp;•&nbsp;&nbsp; [🐛 Report Bug](https://github.com/AyushMishra504/Fablet/issues) &nbsp;&nbsp;•&nbsp;&nbsp; [💡 Request Feature](https://github.com/AyushMishra504/Fablet/issues)
+[Live Demo](https://fablet.vercel.app) &nbsp;&nbsp;•&nbsp;&nbsp; [Report Bug](https://github.com/itsrajdeep/Fablet/issues) &nbsp;&nbsp;•&nbsp;&nbsp; [Request Feature](https://github.com/itsrajdeep/Fablet/issues)
 
 </div>
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 > _Coming soon — deploy the app and add screenshots here._
 
 ---
 
-## ✨ Features
+## Features
 
 | Feature | Description |
 |---|---|
-| 🔐 **Authentication** | Secure registration, login & logout with JWT-based sessions and bcrypt password hashing |
-| 📊 **Smart Dashboard** | Centralized hub showing all drafts & published stories with word counts and quick actions |
-| 🤖 **Ink AI Assistant** | Integrated AI chat panel for plot suggestions, thematic ideas, and editing feedback |
-| 📝 **Distraction-free Editor** | Real-time auto-saving, manual draft saving, and a clean full-focus writing canvas |
-| 🌗 **Persistent Theming** | Global Light / Dark mode that remembers your preference across all sessions |
-| 🖼️ **Media Uploads** | Profile picture and cover image support via Cloudinary |
-| 📖 **Story Exploration** | Browse and read published stories from other authors |
-| ⚙️ **User Settings** | Full profile management including username, bio, and avatar |
+| **Authentication** | Secure registration, login & logout with JWT-based sessions and bcrypt password hashing |
+| **Smart Dashboard** | Centralized hub showing all drafts & published stories with word counts and quick actions |
+| **Ink AI Assistant** | Integrated AI chat panel for plot suggestions, thematic ideas, and editing feedback |
+| **Distraction-free Editor** | Real-time auto-saving, manual draft saving, and a clean full-focus writing canvas |
+| **Persistent Theming** | Global Light / Dark mode that remembers your preference across all sessions |
+| **Media Uploads** | Profile picture and cover image support via Cloudinary |
+| **Story Exploration** | Browse and read published stories from other authors |
+| **User Settings** | Full profile management including username, bio, and avatar |
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 ![React](https://img.shields.io/badge/React_19-20232A?style=flat-square&logo=react&logoColor=61DAFB)
@@ -62,7 +62,7 @@
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Fablet/
@@ -70,7 +70,7 @@ Fablet/
 │   └── src/
 │       ├── pages/          # All page components (Editor, Dashboard, etc.)
 │       ├── styles/         # Global and component CSS
-│       ├── App.jsx          # Root component with routing
+│       ├── App.jsx         # Root component with routing
 │       └── ThemeContext.jsx # Global theme (light/dark) provider
 │
 └── server/                 # Node.js + Express backend
@@ -83,7 +83,7 @@ Fablet/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -94,7 +94,7 @@ Fablet/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/AyushMishra504/Fablet.git
+git clone https://github.com/itsrajdeep/Fablet.git
 cd Fablet
 ```
 
@@ -134,7 +134,7 @@ The app will open at `http://localhost:3000`. The React dev server proxies API c
 
 ---
 
-## 🌐 Deployment
+## Deployment
 
 | Layer | Recommended Platform | Notes |
 |---|---|---|
@@ -145,7 +145,7 @@ The app will open at `http://localhost:3000`. The React dev server proxies API c
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Here's how:
 
@@ -157,7 +157,7 @@ Contributions are welcome! Here's how:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
@@ -165,8 +165,8 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 <div align="center">
 
-Made with ❤️ by [AyushMishra504](https://github.com/AyushMishra504)
+Made with love by [itsrajdeep](https://github.com/itsrajdeep)
 
-⭐ Star this repo if you find it useful!
+Star this repo if you find it useful!
 
 </div>
