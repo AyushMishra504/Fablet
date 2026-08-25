@@ -1,26 +1,172 @@
-# Fablet
+<div align="center">
 
-Fablet is a modern, web-based writing application designed to help authors create, edit, and manage their stories. It features a seamless and distraction-free editor enhanced by an integrated AI writing assistant named "Ink", designed to streamline the creative process from initial draft to published masterpiece.
+# ✍️ Fablet
 
-## 🚀 Features
+**A modern, AI-powered writing platform for authors.**
 
-- **User Authentication:** Secure registration, login, and sign-out completely integrated with the backend.
-- **Smart Dashboard:** A centralized hub to view all your drafts and published stories, featuring simple card-based navigation, word counts, and quick-action menus.
-- **AI-Powered Editor:**
-  - Real-time auto-saving and manual draft saving.
-  - An integrated **Ink Assistant** chat panel that provides plot suggestions, thematic ideas, and editing feedback.
-  - Distraction-free canvas with smooth routing.
-- **Persistent Theming:** A cohesive Light / Dark mode toggle that seamlessly remembers your preference across all pages and sessions via a global React Context.
+<br/>
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Now-6c63ff?style=for-the-badge&logo=vercel&logoColor=white)](https://fablet.vercel.app)
+[![GitHub Stars](https://img.shields.io/github/stars/AyushMishra504/Fablet?style=for-the-badge&logo=github&color=f9c74f)](https://github.com/AyushMishra504/Fablet/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/AyushMishra504/Fablet?style=for-the-badge&logo=github&color=43aa8b)](https://github.com/AyushMishra504/Fablet/network)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+
+<br/>
+
+> Fablet is a distraction-free, web-based writing application that helps authors create, edit, and publish their stories — powered by an integrated AI writing assistant named **Ink**.
+
+<br/>
+
+[🚀 Live Demo](https://fablet.vercel.app) &nbsp;&nbsp;•&nbsp;&nbsp; [🐛 Report Bug](https://github.com/AyushMishra504/Fablet/issues) &nbsp;&nbsp;•&nbsp;&nbsp; [💡 Request Feature](https://github.com/AyushMishra504/Fablet/issues)
+
+</div>
+
+---
+
+## 📸 Screenshots
+
+> _Coming soon — deploy the app and add screenshots here._
+
+---
+
+## ✨ Features
+
+| Feature | Description |
+|---|---|
+| 🔐 **Authentication** | Secure registration, login & logout with JWT-based sessions and bcrypt password hashing |
+| 📊 **Smart Dashboard** | Centralized hub showing all drafts & published stories with word counts and quick actions |
+| 🤖 **Ink AI Assistant** | Integrated AI chat panel for plot suggestions, thematic ideas, and editing feedback |
+| 📝 **Distraction-free Editor** | Real-time auto-saving, manual draft saving, and a clean full-focus writing canvas |
+| 🌗 **Persistent Theming** | Global Light / Dark mode that remembers your preference across all sessions |
+| 🖼️ **Media Uploads** | Profile picture and cover image support via Cloudinary |
+| 📖 **Story Exploration** | Browse and read published stories from other authors |
+| ⚙️ **User Settings** | Full profile management including username, bio, and avatar |
+
+---
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** React, React Router DOM, Vanilla CSS (with modern CSS variables for dynamic theming).
-- **Backend:** Node.js, Express.js.
-- **Database:** MongoDB (via Mongoose), utilizing MongoDB Atlas for cloud database scaling.
+### Frontend
+![React](https://img.shields.io/badge/React_19-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![React Router](https://img.shields.io/badge/React_Router_7-CA4245?style=flat-square&logo=react-router&logoColor=white)
+![CSS](https://img.shields.io/badge/Vanilla_CSS-264de4?style=flat-square&logo=css3&logoColor=white)
 
-## 📦 Running Locally
+### Backend
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express_5-000000?style=flat-square&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=flat-square&logo=mongodb&logoColor=white)
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/AyushMishra504/Fablet.git
-   cd Fablet
+### Services
+![Cloudinary](https://img.shields.io/badge/Cloudinary-3448C5?style=flat-square&logo=cloudinary&logoColor=white)
+![MongoDB Atlas](https://img.shields.io/badge/MongoDB_Atlas-4EA94B?style=flat-square&logo=mongodb&logoColor=white)
+
+---
+
+## 📁 Project Structure
+
+```
+Fablet/
+├── client/                 # React frontend
+│   └── src/
+│       ├── pages/          # All page components (Editor, Dashboard, etc.)
+│       ├── styles/         # Global and component CSS
+│       ├── App.jsx          # Root component with routing
+│       └── ThemeContext.jsx # Global theme (light/dark) provider
+│
+└── server/                 # Node.js + Express backend
+    └── src/
+        ├── routes/         # API route handlers (auth, stories, settings...)
+        ├── mongoose/       # Mongoose models & schemas
+        ├── middleware/     # JWT auth & validation middleware
+        └── utils/          # Helper utilities
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) v18+
+- [MongoDB Atlas](https://www.mongodb.com/atlas) account
+- [Cloudinary](https://cloudinary.com/) account
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/AyushMishra504/Fablet.git
+cd Fablet
+```
+
+### 2. Configure the backend
+
+```bash
+cd server
+npm install
+```
+
+Create a `.env` file inside `server/`:
+
+```env
+PORT=5000
+MONGO_URI=your_mongodb_atlas_connection_string
+JWT_SECRET=your_jwt_secret_key
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+```
+
+Start the server:
+
+```bash
+npm run dev
+```
+
+### 3. Configure the frontend
+
+```bash
+cd ../client
+npm install
+npm start
+```
+
+The app will open at `http://localhost:3000`. The React dev server proxies API calls to `http://localhost:5000` automatically.
+
+---
+
+## 🌐 Deployment
+
+| Layer | Recommended Platform | Notes |
+|---|---|---|
+| **Frontend** | [Vercel](https://vercel.com) | Set root directory to `client/` |
+| **Backend** | [Render](https://render.com) | Set root to `server/`, start cmd: `node src/server.mjs` |
+| **Database** | [MongoDB Atlas](https://www.mongodb.com/atlas) | Free M0 cluster |
+| **Media** | [Cloudinary](https://cloudinary.com) | Free tier for uploads |
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Here's how:
+
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add some amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+
+Made with ❤️ by [AyushMishra504](https://github.com/AyushMishra504)
+
+⭐ Star this repo if you find it useful!
+
+</div>
