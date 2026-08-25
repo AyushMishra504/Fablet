@@ -221,8 +221,8 @@ const Register = () => {
         </p>
         <p className="reg-terms">
           By clicking "Create Account", you agree to Fablet's{" "}
-          <a href="#" className="reg-terms-link">Terms of Service</a> and{" "}
-          <a href="#" className="reg-terms-link">Privacy Policy</a>.
+          <a href="/" className="reg-terms-link">Terms of Service</a> and{" "}
+          <a href="/" className="reg-terms-link">Privacy Policy</a>.
         </p>
 
       </div>

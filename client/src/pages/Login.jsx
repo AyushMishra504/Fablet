@@ -106,7 +106,7 @@ const Login = () => {
             <div className="login-field">
               <div className="login-label-row">
                 <label className="login-label">Password</label>
-                <a href="#" className="login-forgot">Forgot?</a>
+                <a href="/" className="login-forgot">Forgot?</a>
               </div>
               <div className="login-input-wrap">
                 <span className="material-symbols-outlined login-input-icon">lock</span>
@@ -201,7 +201,7 @@ const Login = () => {
         {/* Bottom links */}
         <div className="login-bottom-links">
           {["Privacy Policy", "Terms of Service", "Help Center"].map((link) => (
-            <a key={link} href="#" className="login-bottom-link">{link}</a>
+            <a key={link} href="/" className="login-bottom-link">{link}</a>
           ))}
         </div>
 

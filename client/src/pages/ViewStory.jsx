@@ -31,19 +31,14 @@ export default function ViewStory() {
   const { id } = useParams();
   const { dark } = useTheme();
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
   const navigate = useNavigate();
-  const [panelOpen, setPanelOpen] = useState(true);
-  const [autoSuggest, setAutoSuggest] = useState(true);
-  const [saveStatus, setSaveStatus] = useState("saved"); // "unsaved" | "saving" | "saved" | "error"
+  const [saveStatus, setSaveStatus] = useState("saved");
   const [wordCount, setWordCount] = useState(0);
   
   const [aiInput, setAiInput] = useState("");
-  const [messages, setMessages] = useState(AI_MESSAGES);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
  
   const editorRef = useRef(null);
-  const chatEndRef = useRef(null);
 
 
 

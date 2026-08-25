@@ -16,7 +16,7 @@ const DarkToggle = ({ dark, setDark }) => (
 );
 
 export default function Dashboard() {
-  const { user, dark, setDark } = useOutletContext();
+  const { dark, setDark } = useOutletContext();
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [stories, setStories] = useState([]);
@@ -80,8 +80,7 @@ export default function Dashboard() {
     (s.title || "").toLowerCase().includes(search.toLowerCase())
   );
 
-  // We map over a mock array when loading so Skeleton screens generate repeatedly
-  const displayItems = loading ? Array(6).fill(null) : filtered;
+  // eslint-disable-next-line no-unused-vars
 
   return (
     <main className="db-main">

@@ -206,7 +206,7 @@ export default function App() {
           <div className="footer-links">
             {["Privacy Policy", "Terms of Service", "Contact", "Twitter"].map(
               (link) => (
-                <a key={link} href="#" className="footer-link">
+                <a key={link} href="/" className="footer-link">
                   {link}
                 </a>
               )
