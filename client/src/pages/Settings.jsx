@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
+import { apiFetch } from "../api";
 import "../styles/settings.css";
 
 const TABS = [
@@ -70,7 +71,7 @@ export default function Settings() {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const res = await fetch("/api/settings", { credentials: "include" });
+        const res = await apiFetch("/api/settings", { credentials: "include" });
         if (!res.ok) throw new Error("Failed to load settings");
         const data = await res.json();
         setProfile({
@@ -105,7 +106,7 @@ export default function Settings() {
   const handleSaveProfile = async () => {
     setSaving(true);
     try {
-      const res = await fetch("/api/settings/profile", {
+      const res = await apiFetch("/api/settings/profile", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -127,7 +128,7 @@ export default function Settings() {
   const handleSavePrefs = async () => {
     setSaving(true);
     try {
-      const res = await fetch("/api/settings/profile", {
+      const res = await apiFetch("/api/settings/profile", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -154,7 +155,7 @@ export default function Settings() {
     }
     setSaving(true);
     try {
-      const res = await fetch("/api/settings/password", {
+      const res = await apiFetch("/api/settings/password", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -181,7 +182,7 @@ export default function Settings() {
     const formData = new FormData();
     formData.append("avatar", file);
     try {
-      const res = await fetch("/api/settings/avatar", {
+      const res = await apiFetch("/api/settings/avatar", {
         method: "PUT",
         credentials: "include",
         body: formData,
@@ -202,7 +203,7 @@ export default function Settings() {
   // Remove avatar
   const handleAvatarRemove = async () => {
     try {
-      await fetch("/api/settings/avatar", {
+      await apiFetch("/api/settings/avatar", {
         method: "DELETE",
         credentials: "include",
       });
@@ -217,7 +218,7 @@ export default function Settings() {
   const handleDeleteAccount = async () => {
     setDeleting(true);
     try {
-      const res = await fetch("/api/settings/account", {
+      const res = await apiFetch("/api/settings/account", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

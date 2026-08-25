@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
+import { apiFetch } from "../api";
 import "../styles/publish.css";
 
 function ConfirmPublishStory({ storyId, className, title, content }) {
@@ -15,7 +16,7 @@ function ConfirmPublishStory({ storyId, className, title, content }) {
     setError(null);
 
     try {
-      const res = await fetch(`/api/stories/${storyId}/publish`, {
+      const res = await apiFetch(`/api/stories/${storyId}/publish`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

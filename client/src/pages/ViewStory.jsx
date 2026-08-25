@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTheme } from "../ThemeContext";
+import { apiFetch } from "../api";
 import "../styles/editor.css";
 
 const INITIAL_CONTENT = ["Start writing your story here..."];
@@ -52,7 +53,7 @@ export default function ViewStory() {
 
 useEffect(() => {
   const fetchStory = async () => {
-    const res = await fetch(`/api/stories/${id}`, {
+    const res = await apiFetch(`/api/stories/${id}`, {
       credentials: "include",
     });
 

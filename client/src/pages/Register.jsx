@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiFetch } from "../api";
 import "../styles/register.css";
 
 const Register = () => {
@@ -31,7 +32,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/register", {
+      const res = await apiFetch("/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

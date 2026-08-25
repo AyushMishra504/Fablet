@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTheme } from "../ThemeContext";
+import { apiFetch } from "../api";
 import ConfirmPublishStory from "./ConfirmPublishStory";
 import "../styles/editor.css";
 
@@ -126,7 +127,7 @@ export default function Editor() {
     if (saveStatus === "saving") return;
     setSaveStatus("saving");
     try {
-      const res = await fetch(`/api/stories/${id}`, {
+      const res = await apiFetch(`/api/stories/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -159,7 +160,7 @@ export default function Editor() {
 
   const handleDeleteEditorStory = async () => {
     try {
-      const res = await fetch(`/api/stories/${id}`, {
+      const res = await apiFetch(`/api/stories/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -226,7 +227,7 @@ export default function Editor() {
   }, [focusMode]);
 useEffect(() => {
   const fetchStory = async () => {
-    const res = await fetch(`/api/stories/${id}`, {
+    const res = await apiFetch(`/api/stories/${id}`, {
       credentials: "include",
     });
 
@@ -273,7 +274,7 @@ useEffect(() => {
     try {
       const formData = new FormData();
       formData.append("cover", file);
-      const res = await fetch(`/api/stories/${id}/cover`, {
+      const res = await apiFetch(`/api/stories/${id}/cover`, {
         method: "POST",
         credentials: "include",
         body: formData,
@@ -292,7 +293,7 @@ useEffect(() => {
 
   const handleCoverRemove = async () => {
     try {
-      await fetch(`/api/stories/${id}/cover`, {
+      await apiFetch(`/api/stories/${id}/cover`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -306,7 +307,7 @@ useEffect(() => {
   const handleSaveSettings = async () => {
     setSettingsSaving(true);
     try {
-      const res = await fetch(`/api/stories/${id}`, {
+      const res = await apiFetch(`/api/stories/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.mjs",
     "dev": "nodemon src/server.mjs"
   },
   "keywords": [],
@@ -15,6 +16,7 @@
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.9.0",
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
     "dotenv": "^17.2.4",
     "express": "^5.2.1",
     "express-validator": "^7.3.1",

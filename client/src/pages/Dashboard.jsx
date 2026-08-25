@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
+import { apiFetch } from "../api";
 import StoryCard from "./StoryCard";
 
 const DarkToggle = ({ dark, setDark }) => (
@@ -24,7 +25,7 @@ export default function Dashboard() {
 
   const handleCreateStory = async () => {
     try {
-      const res = await fetch("/api/stories", {
+      const res = await apiFetch("/api/stories", {
         method: "POST",
         credentials: "include",
       });
@@ -37,7 +38,7 @@ export default function Dashboard() {
 
   const handleDeleteStory = async (story) => {
     try {
-      const res = await fetch(`/api/stories/${story._id}`, {
+      const res = await apiFetch(`/api/stories/${story._id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -52,7 +53,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchStories = async () => {
       try {
-        const res = await fetch("/api/stories", { credentials: "include" });
+        const res = await apiFetch("/api/stories", { credentials: "include" });
         const json = await res.json();
         setStories(Array.isArray(json) ? json : []);
       } catch (err) {

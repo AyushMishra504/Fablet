@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "../ThemeContext";
+import { apiFetch } from "../api";
 import "../styles/dashboard.css";
 
 const NavIcon = ({ path, path2 }) => (
@@ -19,7 +20,7 @@ export default function DashboardLayout() {
 
   const handleSignOut = async () => {
     try {
-      const res = await fetch("/api/logout", {
+      const res = await apiFetch("/api/logout", {
         method: "POST",
         credentials: "include",
       });
@@ -34,7 +35,7 @@ export default function DashboardLayout() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("/api/dashboard", { credentials: "include" });
+        const res = await apiFetch("/api/dashboard", { credentials: "include" });
         if (res.status === 401) {
           setData({ name: "Bones", email: "bones@boneyard.local" });
           return;

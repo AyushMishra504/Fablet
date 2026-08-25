@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
+import { apiFetch } from "../api";
 import "../styles/logout.css";
 
 function Logout() {
@@ -14,7 +15,7 @@ function Logout() {
     setError(null);
 
     try {
-      const res = await fetch("/api/logout", {
+      const res = await apiFetch("/api/logout", {
         method: "POST",
         credentials: "include",
       });

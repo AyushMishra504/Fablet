@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
+import { apiFetch } from "../api";
 import StoryCard from "./StoryCard";
 
 const DarkToggle = ({ dark, setDark }) => (
@@ -23,7 +24,7 @@ export default function Explore() {
   useEffect(() => {
     const fetchExplore = async () => {
       try {
-        const res = await fetch("/api/explore", { credentials: "include" });
+        const res = await apiFetch("/api/explore", { credentials: "include" });
         const exploreData = await res.json();
         setStories(Array.isArray(exploreData) ? exploreData : []);
       } catch (err) {
