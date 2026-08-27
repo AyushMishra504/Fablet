@@ -7,6 +7,7 @@
 <br/>
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Now-6c63ff?style=for-the-badge&logo=vercel&logoColor=white)](https://fablet.vercel.app)
+[![Backend API](https://img.shields.io/badge/Backend%20API-Online-46c77d?style=for-the-badge&logo=render&logoColor=white)](https://fablet.onrender.com/health)
 [![GitHub Stars](https://img.shields.io/github/stars/itsrajdeep/Fablet?style=for-the-badge&logo=github&color=f9c74f)](https://github.com/itsrajdeep/Fablet/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/itsrajdeep/Fablet?style=for-the-badge&logo=github&color=43aa8b)](https://github.com/itsrajdeep/Fablet/network)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
@@ -17,7 +18,7 @@
 
 <br/>
 
-[Live Demo](https://fablet.vercel.app) &nbsp;&nbsp;•&nbsp;&nbsp; [Report Bug](https://github.com/itsrajdeep/Fablet/issues) &nbsp;&nbsp;•&nbsp;&nbsp; [Request Feature](https://github.com/itsrajdeep/Fablet/issues)
+[🌐 Live Demo](https://fablet.vercel.app) &nbsp;&nbsp;•&nbsp;&nbsp; [⚙️ API Health](https://fablet.onrender.com/health) &nbsp;&nbsp;•&nbsp;&nbsp; [Report Bug](https://github.com/itsrajdeep/Fablet/issues) &nbsp;&nbsp;•&nbsp;&nbsp; [Request Feature](https://github.com/itsrajdeep/Fablet/issues)
 
 </div>
 
@@ -136,10 +137,10 @@ The app will open at `http://localhost:3000`. The React dev server proxies API c
 
 ## Deployment
 
-| Layer | Recommended Platform | Notes |
+| Layer | Platform | Live URL |
 |---|---|---|
-| **Frontend** | [Vercel](https://vercel.com) | Set root directory to `client/` |
-| **Backend** | [Render](https://render.com) | Set root to `server/`, start cmd: `node src/server.mjs` |
+| **Frontend** | [Vercel](https://vercel.com) | [fablet.vercel.app](https://fablet.vercel.app) |
+| **Backend** | [Render](https://render.com) | [fablet.onrender.com](https://fablet.onrender.com) |
 | **Database** | [MongoDB Atlas](https://www.mongodb.com/atlas) | Free M0 cluster |
 | **Media** | [Cloudinary](https://cloudinary.com) | Free tier for uploads |
 
