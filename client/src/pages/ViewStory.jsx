@@ -6,26 +6,6 @@ import "../styles/editor.css";
 
 const INITIAL_CONTENT = ["Start writing your story here..."];
 
-const AI_MESSAGES = [
-  {
-    id: 1,
-    role: "ai",
-    text: "How can I help you with your story today? I've analyzed the mood of your last two paragraphs.",
-    time: "10:42 AM",
-  },
-  {
-    id: 2,
-    role: "user",
-    text: "Could you suggest a plot twist for Elias's discovery in the conservatory?",
-    time: "10:43 AM",
-  },
-  {
-    id: 3,
-    role: "suggestion",
-    text: '"What if Elias finds a loose floorboard beneath a fern, containing letters that indicate his father was actually the thief he was investigating?"',
-    time: "10:43 AM",
-  },
-];
 
 export default function ViewStory() {
   const { id } = useParams();
@@ -35,8 +15,6 @@ export default function ViewStory() {
   const [saveStatus, setSaveStatus] = useState("saved");
   const [wordCount, setWordCount] = useState(0);
   
-  const [aiInput, setAiInput] = useState("");
-  const [messages, setMessages] = useState(AI_MESSAGES);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
  
   const editorRef = useRef(null);
@@ -69,21 +47,7 @@ useEffect(() => {
   if (id) fetchStory();
 }, [id]);
 
-  const handleSendAI = () => {
-    if (!aiInput.trim()) return;
-    setMessages((prev) => [
-      ...prev,
-      { id: Date.now(), role: "user", text: aiInput, time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) },
-    ]);
-    setAiInput("");
-    // Simulate AI reply
-    setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        { id: Date.now() + 1, role: "ai", text: "That's a compelling direction! Let me think about how to weave that into your narrative...", time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) },
-      ]);
-    }, 1200);
-  };
+
 
   return (
     <div className={`ed-root ${dark ? "ed-dark" : ""}`}>
