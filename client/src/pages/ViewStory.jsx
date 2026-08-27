@@ -36,6 +36,7 @@ export default function ViewStory() {
   const [wordCount, setWordCount] = useState(0);
   
   const [aiInput, setAiInput] = useState("");
+  const [messages, setMessages] = useState(AI_MESSAGES);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
  
   const editorRef = useRef(null);
