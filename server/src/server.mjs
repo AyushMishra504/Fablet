@@ -31,7 +31,18 @@ app.use(cookieParser());
 app.use("/", indexRouter);
 
 app.get("/", (req, res) => {
-  res.status(200).send("Landing Page");
+  res.status(200).send("Fablet API is running");
+});
+
+app.get("/health", (req, res) => {
+  const dbState = mongoose.connection.readyState;
+  const dbStatus = ["disconnected", "connected", "connecting", "disconnecting"][dbState] || "unknown";
+  res.status(200).json({
+    status: "ok",
+    uptime: process.uptime(),
+    db: dbStatus,
+    timestamp: new Date().toISOString(),
+  });
 });
 
 app.listen(PORT, () =>
